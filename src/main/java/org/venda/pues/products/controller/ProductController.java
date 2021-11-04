@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.venda.pues.products.service.ProductServices;
 
 @RestController
-@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.PUT})
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.PUT})
 @RequestMapping("/v1/product")
 public class ProductController {
 
