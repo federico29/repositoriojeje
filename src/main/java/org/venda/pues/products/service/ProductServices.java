@@ -91,4 +91,13 @@ public class ProductServices {
     private void updateUser(UserDocument user) {
         userRepository.save(user);
     }
+
+    public boolean delete(String id) {
+        ProductDocument product = productRepository.findById(id).orElse(null);
+        if (product != null) {
+            productRepository.deleteById(id);
+            return true;
+        }
+        throw new NotFoundException("Product not found");
+    }
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.venda.pues.products.service.ProductServices;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.PUT})
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 @RequestMapping("/v1/product")
 public class ProductController {
 
@@ -40,5 +40,10 @@ public class ProductController {
     @PutMapping("/decrease-stock/{id}")
     public ResponseEntity<?> sellUnits(@PathVariable String id, @RequestParam int units) {
         return ResponseEntity.ok(productServices.decreaseStock(id, units));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        return ResponseEntity.ok(productServices.delete(id));
     }
 }
