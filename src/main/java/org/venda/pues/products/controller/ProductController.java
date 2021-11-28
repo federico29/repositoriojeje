@@ -1,10 +1,13 @@
 package org.venda.pues.products.controller;
 
 import dto.ProductDto;
+import dto.SaleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.venda.pues.products.service.ProductServices;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*", methods= {RequestMethod.GET,RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
@@ -37,9 +40,9 @@ public class ProductController {
         return ResponseEntity.ok(productServices.increaseStock(id, units));
     }
 
-    @PutMapping("/decrease-stock/{id}")
-    public ResponseEntity<?> sellUnits(@PathVariable String id, @RequestParam int units) {
-        return ResponseEntity.ok(productServices.decreaseStock(id, units));
+    @PutMapping("/decrease-stock")
+    public ResponseEntity<?> sellUnits(@RequestBody List<SaleDto> saleData) {
+        return ResponseEntity.ok(productServices.decreaseStock(saleData));
     }
 
     @DeleteMapping("/{id}")

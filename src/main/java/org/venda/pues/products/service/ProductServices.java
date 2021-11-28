@@ -1,6 +1,7 @@
 package org.venda.pues.products.service;
 
 import dto.ProductDto;
+import dto.SaleDto;
 import error.exception.InvalidValuesException;
 import error.exception.NotFoundException;
 import models.ProductDocument;
@@ -76,16 +77,21 @@ public class ProductServices {
         throw new NotFoundException("Product not found");
     }
 
-    public ProductDocument decreaseStock(String id, int units) {
-        ProductDocument product = productRepository.findById(id).orElse(null);
-        if (product != null) {
-            if (product.getStock() < units) {
-               throw new InvalidValuesException("Not enough units");
+    public Boolean decreaseStock(List<SaleDto> saleData) {
+        for (SaleDto sale: saleData) {
+            ProductDocument product = productRepository.findById(sale.getProductId()).orElse(null);
+            if (product != null) {
+                if (product.getStock() < sale.getQuantity()) {
+                    throw new InvalidValuesException("Not enough units");
+                }
+                product.setStock(product.getStock() - sale.getQuantity());
+                productRepository.save(product);
+            } else {
+                throw new NotFoundException("Product not found");
             }
-            product.setStock(product.getStock() - units);
-            return productRepository.save(product);
         }
-        throw new NotFoundException("Product not found");
+
+        return true;
     }
 
     private void updateUser(UserDocument user) {
