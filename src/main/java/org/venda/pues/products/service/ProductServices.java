@@ -1,6 +1,7 @@
 package org.venda.pues.products.service;
 
 import dto.ProductDto;
+import dto.ProductSaleDetailsDto;
 import dto.SaleDto;
 import error.exception.InvalidValuesException;
 import error.exception.NotFoundException;
@@ -77,8 +78,8 @@ public class ProductServices {
         throw new NotFoundException("Product not found");
     }
 
-    public Boolean decreaseStock(List<SaleDto> saleData) {
-        for (SaleDto sale: saleData) {
+    public Boolean decreaseStock(SaleDto saleData) {
+        for (ProductSaleDetailsDto sale: saleData.getSaleData()) {
             ProductDocument product = productRepository.findById(sale.getProductId()).orElse(null);
             if (product != null) {
                 if (product.getStock() < sale.getQuantity()) {

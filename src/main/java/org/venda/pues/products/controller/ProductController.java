@@ -41,7 +41,8 @@ public class ProductController {
     }
 
     @PutMapping("/decrease-stock")
-    public ResponseEntity<?> sellUnits(@RequestBody List<SaleDto> saleData) {
+    public ResponseEntity<?> sellUnits(@RequestBody SaleDto saleData) {
+        System.out.println(saleData);
         return ResponseEntity.ok(productServices.decreaseStock(saleData));
     }
 
