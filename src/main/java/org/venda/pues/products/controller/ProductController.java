@@ -25,6 +25,11 @@ public class ProductController {
         return ResponseEntity.ok(productServices.create(userId, productDto));
     }
 
+    @GetMapping("/id/{productId}")
+    public ResponseEntity<?> getById(@PathVariable String productId) {
+        return ResponseEntity.ok(productServices.findById(productId));
+    }
+
     @GetMapping("/{userId}")
     public ResponseEntity<?> all(@PathVariable String userId) {
         return ResponseEntity.ok(productServices.all(userId));
