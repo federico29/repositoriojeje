@@ -1,6 +1,7 @@
 package org.venda.pues.products.controller;
 
 import dto.ProductDto;
+import dto.ProductSaleDetailsDto;
 import dto.SaleDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +26,9 @@ public class ProductController {
         return ResponseEntity.ok(productServices.create(userId, productDto));
     }
 
-    @GetMapping("/id/{productId}")
-    public ResponseEntity<?> getById(@PathVariable String productId) {
-        return ResponseEntity.ok(productServices.findById(productId));
+    @PostMapping("/names")
+    public ResponseEntity<?> getProductNames(@RequestBody List<ProductSaleDetailsDto> productIds) {
+        return ResponseEntity.ok((productServices.getProductNames(productIds)));
     }
 
     @GetMapping("/{userId}")

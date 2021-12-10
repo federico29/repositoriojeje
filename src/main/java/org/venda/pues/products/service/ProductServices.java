@@ -107,4 +107,12 @@ public class ProductServices {
         }
         throw new NotFoundException("Product not found");
     }
+
+    public List<String> getProductNames(List<ProductSaleDetailsDto> productIds) {
+        List<String> names = new ArrayList<>();
+        for (ProductSaleDetailsDto productData: productIds) {
+            productRepository.findById(productData.getProductId()).ifPresent(product -> names.add(product.getProductName()));
+        }
+        return names;
+    }
 }
