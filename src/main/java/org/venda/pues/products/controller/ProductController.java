@@ -36,6 +36,11 @@ public class ProductController {
         return ResponseEntity.ok(productServices.all(userId));
     }
 
+    @PostMapping("/on-kart")
+    public ResponseEntity<?> getProductsOnKart(@RequestBody SaleDto saleDto) {
+        return ResponseEntity.ok(productServices.getProductsOnKart(saleDto));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable String id, @RequestBody ProductDto productDto) {
         return ResponseEntity.ok(productServices.update(id, productDto));

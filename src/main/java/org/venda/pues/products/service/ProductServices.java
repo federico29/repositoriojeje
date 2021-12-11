@@ -115,4 +115,12 @@ public class ProductServices {
         }
         return names;
     }
+
+    public List<ProductDocument> getProductsOnKart(SaleDto saleDto) {
+        List<ProductDocument> productsOnKart = new ArrayList<>();
+        for (ProductSaleDetailsDto productSale: saleDto.getSaleData()) {
+            productRepository.findById(productSale.getProductId()).ifPresent(productsOnKart::add);
+        }
+        return productsOnKart;
+    }
 }
